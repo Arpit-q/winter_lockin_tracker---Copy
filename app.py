@@ -967,18 +967,18 @@ elif nav == "💬 AI Hunter Assistant":
 elif nav == "⚙️ Hunter Config & Reset":
     st.subheader("Hunter System Configuration & Core Targets")
     st.write("Customize your Hunter title, targets, API keys, and seed sample battle data.")
-
     with st.form("config_form"):
         h_name = st.text_input("Hunter Name", value=str(cfg.get("hunter_name", "Arpit")))
         h_title = st.text_input("Hunter Title", value=str(cfg.get("hunter_title", "Shadow Monarch in Training")))
         sgpa = st.number_input("SGPA Target", min_value=0.0, max_value=10.0, value=float(cfg.get("sgpa_target", 10.0)), step=0.1)
         ag_phase = st.number_input("Agentic AI Target Phase", min_value=1, max_value=12, value=int(cfg.get("agentic_target_phase", 9)))
         x0_target = st.number_input("X-0 Topic Target", min_value=10, max_value=200, value=int(cfg.get("x0_phase0_topic_target", 100)))
-        value=str(cfg.get("groq_api_key", "")), type="password")
+        groq_k = st.text_input("Groq API Key", value=str(cfg.get("groq_api_key", "")), type="password")
+        curr_m = str(cfg.get("groq_model", "qwen/qwen3.8-27b"))
         models_list = ai_assistant.get_available_models(groq_k)
         m_idx = models_list.index(curr_m) if curr_m in models_list else 0
         groq_m = st.selectbox("Default Groq Model", models_list, index=m_idx)
-        
+
         save_cfg = st.form_submit_button("Save System Configuration", type="primary")
         if save_cfg:
             update_config_key("hunter_name", h_name)
