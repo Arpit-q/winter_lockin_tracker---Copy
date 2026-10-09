@@ -1,0 +1,6 @@
+@"
+.venv/
+__pycache__/
+*.pyc
+data/winter_lockin.db
+"@ | Out-File -Encoding utf8 .gitignore
